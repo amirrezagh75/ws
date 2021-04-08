@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <script type = "text/javascript">
+        function WebSocketTest() {
+            
+            if (! "WebSocket" in window) 
+              alert("WebSocket NOT supported by your Browser!");
+               
+               // Let us open a web socket
+               var ws = new WebSocket("ws://localhost:8080");
+				
+               ws.onopen = function() {
+                  
+                  // Web Socket is connected, send data using send()
+                  ws.send("sending a message from client!");
+                  alert("Message is sent...");
+               };
+				
+               ws.onmessage = function (evt) { 
+                  var received_msg = evt.data;
+                  alert(`message from server: ${received_msg}`);
+                };
+                
+                // ws.close()
+               
+               ws.onclose = function() { 
+
+                  alert("Connection is closed..."); 
+               };
+         }
+         WebSocketTest()
+    </script>
+
+  </body>
+</html>
